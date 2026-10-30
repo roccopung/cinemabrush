@@ -1,0 +1,23 @@
+{
+  "name": "gaze-cinema",
+  "version": "1.0.0",
+  "description": "A browser piece driven by webcam eye tracking. When the viewer keeps looking at the same area of the screen for 3 seconds, a new video (an extract from a public-domain film) appears centered on that spot. Videos accumulate and overlap. Each one is shown through a soft elliptical gradient mask, so they blend into each other instead of reading as rectangles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "dev": "vite",
+    "build": "vite build",
+    "postinstall": "rm -rf public/mediapipe && mkdir -p public/mediapipe && cp -r node_modules/webgazer/dist/mediapipe/face_mesh public/mediapipe/ && cp node_modules/webgazer/dist/webgazer.js public/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "three": "^0.187.0",
+    "webgazer": "^3.5.3"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

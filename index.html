@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gaze Cinema</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color: #ccc; font: 14px/1.4 system-ui, sans-serif; touch-action: none; }
+    canvas { display: block; position: fixed; inset: 0; }
+    #debug { pointer-events: none; z-index: 10; }
+    #start, #calibration { position: fixed; inset: 0; z-index: 20; display: grid; place-content: center; gap: 12px; text-align: center; background: #000; }
+    #start[hidden] { display: none; }
+    #start button { font: inherit; padding: 10px 20px; cursor: pointer; }
+    #calibration p { margin: 0; }
+    .dot { position: fixed; width: 24px; height: 24px; margin: -12px; border-radius: 50%; border: 0; background: #f33; cursor: pointer; }
+    .dot:disabled { background: #3f3; cursor: default; }
+    body { cursor: none; }
+    #start, #calibration, #controls { cursor: auto; }
+    #controls[hidden] { display: none; }
+    #cursor { position: fixed; top: 0; left: 0; z-index: 15; pointer-events: none; border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; transform: translate(-50%, -50%); }
+    @font-face { font-family: 'ABC Areal Mono'; src: url('/fonts/ABCArealMono-Regular.woff2') format('woff2'); }
+    #controls { position: fixed; top: 12px; left: 12px; z-index: 15; font: 12px/1.4 'ABC Areal Mono', monospace; color: #ddd; }
+    #controls summary { cursor: pointer; user-select: none; }
+    #controls .grid { display: grid; grid-template-columns: auto 160px; gap: 10px 16px; align-items: center; margin-top: 10px; }
+    #controls label { display: contents; }
+    #controls input { appearance: none; width: 100%; height: 2px; margin: 0; background: #555; border-radius: 0; cursor: pointer; }
+    #controls input::-webkit-slider-thumb { appearance: none; width: 10px; height: 10px; background: #fff; border-radius: 0; }
+    #controls input::-moz-range-thumb { width: 10px; height: 10px; background: #fff; border: 0; border-radius: 0; }
+    #controls input:focus-visible { outline: 1px solid #fff; outline-offset: 6px; }
+    #webgazerVideoContainer { top: calc(30% - 120px) !important; left: calc(50% - 160px) !important; }
+  </style>
+</head>
+<body>
+  <div id="start">
+    <button id="start-gaze" hidden>Start (eye tracking)</button>
+    <div>
+      <button id="start-mouse">Start</button>
+      <button id="start-drag">Start (drag)</button>
+    </div>
+    <small>D toggles debug</small>
+  </div>
+  <div id="cursor" hidden></div>
+  <details id="controls" hidden>
+    <summary>Settings</summary>
+    <div class="grid">
+      <label>Dwell size <input type="range" min="50" max="500" step="10" data-keys="DWELL_SIZE BRUSH_WIDTH"></label>
+      <label>Smoothing <input type="range" min="0" max="1" step="0.01" data-keys="SMOOTHING"></label>
+      <label>Mask inner <input type="range" min="0" max="1" step="0.01" data-keys="MASK_INNER"></label>
+    </div>
+  </details>
+  <script src="/webgazer.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
